@@ -2,8 +2,9 @@
 File to create base app and other apps
 ======================================
 """
-from flask import Flask
 from http import HTTPStatus
+
+from flask import Flask
 from flask_cors import CORS
 
 
