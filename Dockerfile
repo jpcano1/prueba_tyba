@@ -11,7 +11,8 @@ COPY requirements.txt .
 
 RUN apt-get update && \
     apt-get install -yy libpq-dev build-essential && \
-    pip install -r requirements.txt \
+    pip install -r requirements.txt
 
 COPY . .
-CMD flask run
+
+CMD gunicorn --bind=0.0.0.0:5000 --log-level=DEBUG -w=4 --timeout=1080 'base_app:app'
