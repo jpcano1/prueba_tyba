@@ -1,0 +1,50 @@
+name: CI Workflow
+
+on:
+  pull_request:
+    branches:
+    - "*"
+    - "!master"
+
+jobs:
+  install:
+    name: Static Code Analysis
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repo
+      uses: actions/checkout@v2
+    - name: Setup Python 3.9
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.9.7
+    - name: Setup Cache
+      uses: actions/cache@v2
+      with:
+        path: ${{ env.pythonLocation }}
+        key: ${{ env.pythonLocation }}-${{ hashFiles('setup.py') }}-${{ hashFiles('**/requirements.txt', '**/requirements-test.txt', '**/requirements-dev.txt') }}
+        restore-keys: |
+          ${{ runner.os }}-pip-
+          ${{ runner.os }}-
+    - name: Install dependencies
+      run: pip install --progress-bar off -q -r requirements.txt -r requirements-test.txt -r requirements-dev.txt --disable-pip-version-check
+    - name: Check Types
+      run: mypy . --exclude 'venv'
+      if: always()
+    - name: Check Isort
+      run: isort --check --settings-path .isort.cfg
+      if: always()
+    - name: Check Formatting
+      run: black --check .
+      if: always()
+    - name: Check Flake8
+      run: flake8 .
+      if: always()
+    - name: Check Dead Code
+      run: vulture . --exclude venv,.venv,env,tests --min-confidence 90
+      if: always()
+    - name: Check Secrets
+      run: detect-secrets scan
+      if: always()
+    - name: Check Vulnerabilities
+      run: bandit -r . -c .bandit.yml
+      if: always()
