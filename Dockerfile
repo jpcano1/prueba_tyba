@@ -15,4 +15,4 @@ RUN apt-get update && \
 
 COPY . .
 
-CMD gunicorn --bind=0.0.0.0:5000 --log-level=DEBUG -w=4 --timeout=1080 'base_app:app'
+CMD gunicorn --bind=0.0.0.0:$PORT --log-level=DEBUG -w=4 --timeout=1080 'base_app:app'
