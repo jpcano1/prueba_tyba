@@ -24,10 +24,6 @@ def init_app() -> Flask:
         """
         return "Hello World", HTTPStatus.OK
 
-    @flask_app.route("/error")
-    def error() -> tuple[int, int]:
-        return 1 / 0, HTTPStatus.OK
-
     if flask_app.env == "production":
         sentry_sdk.init(
             dsn=os.getenv("SENTRY_DSN"),
