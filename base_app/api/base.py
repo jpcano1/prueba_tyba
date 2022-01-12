@@ -22,7 +22,16 @@ def init_app() -> Flask:
 
     @flask_app.route("/")
     def health() -> tuple[str, int]:
-        """Health check route."""
+        """
+        Health check route.
+
+        ---
+        tags:
+            - Health check
+        responses:
+            200:
+                description: Hello world!
+        """
         return "Hello World", HTTPStatus.OK
 
     if flask_app.env == "production":
