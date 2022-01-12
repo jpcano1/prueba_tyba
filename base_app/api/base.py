@@ -1,5 +1,6 @@
 """
-File to create base app and other apps
+File to create base app and other apps.
+
 ======================================
 """
 from http import HTTPStatus
@@ -12,16 +13,12 @@ from sentry_sdk.integrations.flask import FlaskIntegration
 
 
 def init_app() -> Flask:
-    """
-    Base app initializer
-    """
+    """Initialize of base app."""
     flask_app = Flask(__name__, instance_relative_config=True)
 
     @flask_app.route("/")
     def health() -> tuple[str, int]:
-        """
-        Health check route
-        """
+        """Health check route."""
         return "Hello World", HTTPStatus.OK
 
     if flask_app.env == "production":
