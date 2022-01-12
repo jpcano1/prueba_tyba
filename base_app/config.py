@@ -8,6 +8,12 @@ class Base:
     }
 
 
+class Development(Base):
+    """Development config class."""
+
+    ...
+
+
 class Production(Base):
     """Production config class."""
 

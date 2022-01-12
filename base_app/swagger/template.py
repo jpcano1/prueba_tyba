@@ -36,7 +36,7 @@ def swagger_template(
 
 
 def swagger_config(
-    base_path: str = "",
+    base_path: str = "/",
 ) -> dict[str, Any]:
     """
     Describe the base config.
