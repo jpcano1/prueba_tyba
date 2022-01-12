@@ -35,9 +35,9 @@ repos:
       - id: mypy
         language_version: python3.9
         args: ['.']
-#  - repo: https://github.com/jendrikseipp/vulture
-#    rev: v2.1
-#    hooks:
-#      - id: vulture
-#        language_version: python3.9
-#        args: ['.', '--exclude venv,.venv,env,tests', '--min-confidence 90']
+  - repo: https://github.com/jendrikseipp/vulture
+    rev: "v2.3"
+    hooks:
+      - id: vulture
+        #language_version: python3.9
+        #args: ['.', '--exclude venv,.venv,env,tests', '--min-confidence 90']
