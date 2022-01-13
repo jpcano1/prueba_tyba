@@ -16,13 +16,13 @@ class User(Resource):
         },
         location="json",
     )
-    def post(self, **kwargs):
+    def post(self, **kwargs: dict[str, str]) -> tuple[dict[str, str], int]:
         """
         Create user.
 
         ---
         tags:
-          - v1-create-user
+          - Users
         parameters:
           - in: body
             name: body
@@ -46,3 +46,43 @@ class User(Resource):
         except HandlerException as err:
             abort(err.code, error=err.message)
         return handler.response, HTTPStatus.CREATED
+
+
+class Login(Resource):
+    @use_kwargs(
+        {
+            "username": fields.String(required=True),
+            "password": fields.String(required=True),
+        },
+        location="json",
+    )
+    def post(self, **kwargs: dict[str, str]) -> tuple[dict[str, str], int]:
+        """
+        Login user.
+
+        ---
+        tags:
+          - Users
+        parameters:
+          - in: body
+            name: body
+            required: true
+            schema:
+                type: object
+                properties:
+                    username:
+                        type: string
+                        required: true
+                    password:
+                        type: string
+                        required: true
+        responses:
+            201:
+                description: Logged in
+        """
+        handler = UsersHandler(**kwargs)
+        try:
+            handler.handle_login()
+        except HandlerException as err:
+            abort(err.code, error=err.message)
+        return handler.response, HTTPStatus.OK

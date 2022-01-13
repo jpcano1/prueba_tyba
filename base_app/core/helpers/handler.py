@@ -1,7 +1,10 @@
+from typing import Any
+
+
 class BaseHandler:
     def __init__(self, **kwargs):
-        self._kwargs = kwargs
-        self.response = None
+        self._kwargs: dict[str, Any] = kwargs
+        self.response: dict[str, Any] = {}
         self.__parse_kwargs()
 
     def handle_post(self):

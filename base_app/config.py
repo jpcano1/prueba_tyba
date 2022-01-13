@@ -15,12 +15,16 @@ class Development(Base):
     """Development config class."""
 
     MONGO_DATABASE_URI = os.getenv("MONGO_DATABASE_URI", "")
+    SECRET_KEY = "insecure_SLCFQf0rvt"
+    SECURITY_PASSWORD_SALT = "insecure_d8GrdsUCCw"
 
 
 class Production(Base):
     """Production config class."""
 
-    MONGO_DATABASE_URI = os.getenv("MONGO_DATABASE_URI", "")
+    MONGO_DATABASE_URI = os.getenv("MONGO_DATABASE_URI")
+    SECRET_KEY = os.getenv("SECRET_KEY")
+    SECURITY_PASSWORD_SALT = os.getenv("SECURITY_PASSWORD_SALT")
 
 
 class Testing(Base):

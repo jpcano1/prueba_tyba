@@ -10,9 +10,9 @@ class UsersHandler(BaseHandler):
 
     def handle_post(self) -> None:
         """POST create user."""
-        user_created = UserExecutor.create_user(self.username, self.password)
+        UserExecutor.create_user(self.username, self.password)
 
-        self.response = user_created.to_json()
+        self.response = {"response": "User created! Please login"}
 
     def handle_login(self) -> None:
         """POST login user."""
