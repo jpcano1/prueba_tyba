@@ -31,7 +31,7 @@ jobs:
       run: mypy . --exclude 'venv'
       if: always()
     - name: Check Isort
-      run: isort --check --settings-path .isort.cfg
+      run: isort . --check --settings-path .isort.cfg
       if: always()
     - name: Check Formatting
       run: black --check .

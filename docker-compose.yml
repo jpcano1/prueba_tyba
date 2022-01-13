@@ -3,23 +3,36 @@ version: "3.7"
 volumes:
   base_data:
     name: "base_data"
+  db_data:
+    name: "db_data"
 
 networks:
   base_network:
     driver: bridge
 
 services:
-  base:
-    container_name: base_app
-    image: base_app_image
+  app:
+    container_name: tyba_app
+    image: tyba_app_image
     build: .
+    depends_on:
+      - db
     volumes:
       - base_data:/app
     ports:
       - "5000:5000"
     expose:
       - "5000"
-    environment:
-      PORT: 5000
+    env_file:
+      - .env
     networks:
       - base_network
+  db:
+      container_name: tyba_db
+      image: mongo
+      networks:
+        - base_network
+      ports:
+        - "27018:27017"
+      volumes:
+        - db_data:/data/db
