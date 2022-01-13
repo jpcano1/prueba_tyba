@@ -16,4 +16,4 @@ class Transaction(BaseDocument):
     location_queried = fields.EmbeddedDocumentField(Location)
     locations_found = fields.EmbeddedDocumentListField(Location)
 
-    meta = {"collection": "transactions"}
+    meta = {"collection": "transactions", "db_alias": "tyba-db"}

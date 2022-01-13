@@ -33,4 +33,4 @@ class User(BaseDocument):
         """
         return check_password_hash(hash_, password)
 
-    meta = {"collection": "users"}
+    meta = {"collection": "users", "db_alias": "tyba-db"}
