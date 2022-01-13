@@ -1,4 +1,5 @@
 click==8.0.3
+googlemaps==4.5.3
 flasgger==0.9.5
 Flask==2.0.2
 flask-bcrypt==0.7.1
