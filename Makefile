@@ -21,6 +21,6 @@ build: ## rebuild base Docker images
 	@docker-compose build --no-cache
 
 .PHONY: rebuild
-rebuild:
+rebuild: ## rebuild base Docker images
 	@docker-compose down --remove-orphans
 	@docker-compose build --no-cache
