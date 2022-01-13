@@ -1,4 +1,5 @@
 from datetime import datetime
+from uuid import uuid4
 
 from mongoengine import fields
 
@@ -10,9 +11,9 @@ from .user import User
 
 class Transaction(BaseDocument):
 
-    id = fields.UUIDField()
+    transaction_id = fields.UUIDField(default=uuid4, primary_key=True)
     created_at = fields.DateTimeField(default=datetime.utcnow)
-    user_id = fields.ReferenceField(User, reverse_delete_rule=2)
+    user_id = fields.StringField(required=True)
     location_queried = fields.EmbeddedDocumentField(Location)
     locations_found = fields.EmbeddedDocumentListField(Location)
 

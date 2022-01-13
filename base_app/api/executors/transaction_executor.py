@@ -1,6 +1,5 @@
 from datetime import datetime
 from http import HTTPStatus
-from typing import Any
 
 from mongoengine import errors
 
@@ -9,6 +8,7 @@ from base_app.core.services import get_restaurants
 
 from ..models import Transaction
 from ..models.embedded import Location
+from .user_executor import UserExecutor
 
 
 class TransactionExecutor:
@@ -41,14 +41,14 @@ class TransactionExecutor:
             longitude=location_queried["lng"],
         )
 
-        transaction.locations_found.append(
-            Location(
-                name=loc["name"],
-                latitude=loc["location"]["lat"],
-                longitude=loc["location"]["lng"],
+        for loc in locations_found:
+            transaction.locations_found.append(
+                Location(
+                    name=loc["name"],
+                    latitude=loc["location"]["lat"],
+                    longitude=loc["location"]["lng"],
+                )
             )
-            for loc in locations_found
-        )
 
         try:
             transaction.save()

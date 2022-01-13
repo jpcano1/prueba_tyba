@@ -7,15 +7,18 @@ from ..executors import TransactionExecutor
 
 class TransactionsHandler(BaseHandler):
     radius: int
-    location_queried: dict[str, float]
+    lat: float
+    lng: float
 
     def handle_post(self):
         user_id = get_jwt_identity()
 
+        location_queried = {"lat": self.lat, "lng": self.lng}
+
         transaction = TransactionExecutor.get_restaurants(
             user_id=user_id,
             radius=self.radius,
-            location_queried=self.location_queried,
+            location_queried=location_queried,
         )
 
         self.response = transaction.to_dict()
