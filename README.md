@@ -6,3 +6,4 @@
   - User Login
   - Transaction creation
   - Transaction Retrieval
+- In order to execute the project, type the command 'make', it will give instructions for the execution in docker.
