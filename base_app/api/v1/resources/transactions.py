@@ -22,6 +22,32 @@ class Transaction(Resource):
         location="json",
     )
     def post(self, **kwargs: dict[str, Any]) -> tuple[dict[str, Any], int]:
+        """
+        Create transaction.
+
+        ---
+        tags:
+          - Transactions
+        parameters:
+          - in: body
+            name: body
+            required: true
+            schema:
+                type: object
+                properties:
+                    latitude:
+                        type: number
+                        required: true
+                    longitude:
+                        type: number
+                        required: true
+                    radius:
+                        type: number
+                        required: false
+        responses:
+            201:
+                description: Transaction created
+        """
         handler = TransactionsHandler(**kwargs)
         try:
             handler.handle_post()
@@ -31,6 +57,16 @@ class Transaction(Resource):
 
     @jwt_required()
     def get(self):
+        """
+        Get transaction list.
+
+        ---
+        tags:
+          - Transactions
+        responses:
+            200:
+                description: Transactions obtained
+        """
         handler = TransactionsHandler()
         try:
             handler.handle_get()
