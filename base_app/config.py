@@ -5,7 +5,7 @@ class Base:
     """Base config class."""
 
     SWAGGER = {
-        "title": "Base flask app API",
+        "title": "Tyba app API",
         "uiversion": 3,
         "Description": "API Documentation for base app",
     }
