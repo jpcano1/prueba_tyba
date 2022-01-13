@@ -1,5 +1,7 @@
+from datetime import timedelta
 from http import HTTPStatus
 
+from flask_jwt_extended import create_access_token
 from mongoengine import errors
 
 from base_app.core.helpers import HandlerException
@@ -41,3 +43,21 @@ class UserExecutor:
             return user
         except errors.DoesNotExist:
             raise HandlerException(HTTPStatus.NOT_FOUND, "User does not exists")
+
+    @classmethod
+    def login(cls, username: str, password: str) -> str:
+        """
+        Log in a user with username and password.
+
+        :param username: The username of the person
+        :param password: The password of the person
+        :return: The access token of the person
+        """
+        user = cls.get_user(username)
+        verification = User.verify_hash(user.password, password)
+        if not verification:
+            raise HandlerException(HTTPStatus.UNAUTHORIZED, "Wrong username or password")
+        access_token: str = create_access_token(
+            identity=user.id, expires_delta=timedelta(seconds=86400)
+        )
+        return access_token

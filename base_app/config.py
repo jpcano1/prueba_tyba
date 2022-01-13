@@ -1,3 +1,6 @@
+import os
+
+
 class Base:
     """Base config class."""
 
@@ -11,13 +14,13 @@ class Base:
 class Development(Base):
     """Development config class."""
 
-    ...
+    MONGO_DATABASE_URI = os.getenv("MONGO_DATABASE_URI", "")
 
 
 class Production(Base):
     """Production config class."""
 
-    ...
+    MONGO_DATABASE_URI = os.getenv("MONGO_DATABASE_URI", "")
 
 
 class Testing(Base):

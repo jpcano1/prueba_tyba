@@ -9,6 +9,7 @@ import os
 from flasgger import Swagger
 from flask import Flask
 from flask_cors import CORS
+from mongoengine import connect
 import sentry_sdk
 from sentry_sdk.integrations.flask import FlaskIntegration
 
@@ -55,5 +56,7 @@ def init_app() -> Flask:
     )
 
     CORS(flask_app)
+
+    connect(host=flask_app.config["MONGO_DATABASE_URI"], alias="tyba-db")
 
     return flask_app

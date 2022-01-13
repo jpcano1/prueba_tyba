@@ -9,6 +9,15 @@ class UsersHandler(BaseHandler):
     password: str
 
     def handle_post(self) -> None:
+        """POST create user."""
         user_created = UserExecutor.create_user(self.username, self.password)
 
         self.response = user_created.to_json()
+
+    def handle_login(self) -> None:
+        """POST login user."""
+        access_token = UserExecutor.login(self.username, self.password)
+
+        self.response = {
+            "access_token": access_token,
+        }
