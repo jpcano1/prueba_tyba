@@ -1,18 +1,13 @@
-import abc
-from abc import ABC
-
-
-class BaseHandler(ABC):
+class BaseHandler:
     def __init__(self, **kwargs):
         self._kwargs = kwargs
         self.response = None
+        self.__parse_kwargs()
 
-    @abc.abstractmethod
     def handle_post(self):
         """Handle Post."""
         ...
 
-    @abc.abstractmethod
     def handle_get(self):
         """Handle Get."""
         ...

@@ -29,6 +29,8 @@ class UserExecutor:
             return new_user
         except errors.ValidationError as err:
             raise HandlerException(HTTPStatus.BAD_REQUEST, err.to_dict())
+        except errors.NotUniqueError:
+            raise HandlerException(HTTPStatus.CONFLICT, "User already exists")
 
     @staticmethod
     def get_user(username: str) -> User:
