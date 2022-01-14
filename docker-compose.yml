@@ -12,21 +12,21 @@ networks:
 
 services:
   app:
-    container_name: tyba_app
-    image: tyba_app_image
-    build: .
-    depends_on:
-      - db
-    volumes:
-      - base_data:/app
-    ports:
-      - "5000:5000"
-    expose:
-      - "5000"
-    env_file:
-      - .env
-    networks:
-      - base_network
+      container_name: tyba_app
+      image: tyba_app_image
+      build: .
+      depends_on:
+        - db
+      volumes:
+        - base_data:/app
+      ports:
+        - "5000:5000"
+      expose:
+        - "5000"
+      env_file:
+        - .env
+      networks:
+        - base_network
   db:
       container_name: tyba_db
       image: mongo
